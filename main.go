@@ -1,24 +1,25 @@
 package main
 
 import (
-	"datastructures/stack"
+	"datastructures/structure"
 	"fmt"
 )
 
 func main() {
-	var stack structure.Stack[int]
+	linkedList := structure.NewLinkedList[int]()
 
-	stack.Add(10)
-	stack.Add(20)
-	stack.Add(30)
+	firstNode := linkedList.Insert(10, linkedList.SentinelNode)
+	thirdNode := linkedList.Insert(20, firstNode)
+	linkedList.Insert(30, firstNode)
 
-	for !stack.IsNullOrEmpty() {
-		value, err := stack.Pop()
+	fmt.Println(linkedList.Search(20))
+	fmt.Println(thirdNode)
 
-		if err != nil {
-			fmt.Println(err)
-		}
+	err := linkedList.Delete(thirdNode)
 
-		println(value)
+	if err != nil {
+		fmt.Println(err)
 	}
+
+	fmt.Println(linkedList.Search(20))
 }

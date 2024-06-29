@@ -29,7 +29,7 @@ func (s *Stack[T]) Add(newValue T) *Stack[T] {
 func (s *Stack[T]) Pop() (T, error) {
 	if s.topNode == nil {
 		var zero T
-		return zero, errors.New("cannot pop from an empty stack")
+		return zero, errors.New("cannot pop from an empty structure")
 	}
 
 	value := s.topNode.Value
