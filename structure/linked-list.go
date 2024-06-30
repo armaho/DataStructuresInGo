@@ -10,6 +10,7 @@ type LinkedListNode[T comparable] struct {
 
 type LinkedList[T comparable] struct {
 	SentinelNode *LinkedListNode[T]
+	length       int
 }
 
 func NewLinkedList[T comparable]() *LinkedList[T] {
@@ -26,6 +27,7 @@ func NewLinkedList[T comparable]() *LinkedList[T] {
 
 	return &LinkedList[T]{
 		SentinelNode: sentinelNode,
+		length:       0,
 	}
 }
 
@@ -39,6 +41,8 @@ func (linkedList *LinkedList[T]) Insert(value T, node *LinkedListNode[T]) *Linke
 	node.NextNode = newNode
 	newNode.NextNode.PreviousNode = newNode
 
+	linkedList.length++
+
 	return newNode
 }
 
@@ -50,10 +54,16 @@ func (linkedList *LinkedList[T]) Delete(node *LinkedListNode[T]) error {
 	node.PreviousNode.NextNode = node.NextNode
 	node.NextNode.PreviousNode = node.PreviousNode
 
+	linkedList.length--
+
 	return nil
 }
 
 func (linkedList *LinkedList[T]) Search(value T) *LinkedListNode[T] {
+	if linkedList == nil {
+		return nil
+	}
+
 	for node := linkedList.SentinelNode.NextNode; node != linkedList.SentinelNode; node = node.NextNode {
 		if node.Value == value {
 			return node
@@ -61,4 +71,8 @@ func (linkedList *LinkedList[T]) Search(value T) *LinkedListNode[T] {
 	}
 
 	return nil
+}
+
+func (linkedList *LinkedList[T]) Length() int {
+	return linkedList.length
 }
