@@ -6,20 +6,15 @@ import (
 )
 
 func main() {
-	linkedList := structure.NewLinkedList[int]()
+	s1 := []int{1, 2, 3, 4, 5, 6, 7, 8}
 
-	firstNode := linkedList.Insert(10, linkedList.SentinelNode)
-	thirdNode := linkedList.Insert(20, firstNode)
-	linkedList.Insert(30, firstNode)
+	heap := structure.NewMinMaxHeap(s1, func(a int, b int) int { return a - b })
 
-	fmt.Println(linkedList.Search(20))
-	fmt.Println(thirdNode)
+	heap.Insert(10)
+	heap.Insert(0)
 
-	err := linkedList.Delete(thirdNode)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(linkedList.Search(20))
+	fmt.Println(heap.Max())
+	fmt.Println(heap.Min())
+	fmt.Println(heap.Max())
+	fmt.Println(heap.Min())
 }
